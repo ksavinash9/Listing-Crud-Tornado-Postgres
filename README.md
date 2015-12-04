@@ -2,8 +2,8 @@
 Simple Listing Crud Application using **Tornado** and **Postgres**
 
 ##Features
-[ ] Used Momoko which wraps Psycopg2's functionality for use in Tornado(asychronous)
-[ ] Exposed CRUD APIs
+- [x] Used Momoko which wraps Psycopg2's functionality for use in Tornado(asychronous)
+- [x] Exposed CRUD APIs
 
 ##Steps to Run
 + brew install postgresql
