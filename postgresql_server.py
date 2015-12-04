@@ -104,7 +104,7 @@ class PostgresListingHandler(PostgresHandler):
 
 def main():
     http_server = httpserver.HTTPServer(Application())
-    PORT = 8004
+    PORT = 9000
     print("serving at port", PORT)
     http_server.listen(PORT)
     ioloop.IOLoop.instance().start()
