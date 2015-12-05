@@ -8,25 +8,33 @@ class ListingDAO(object):
     def __init__(self, db):
         self.db = db
 
+    #Helper Method for generating a random string of length 10
     def _get_random_str(self, size=10):
         return ''.join(random.choice(string.ascii_uppercase + string.digits)
                        for x in range(size))
 
+    #Helper Method for generating a random integer between 0 - 1000
     def _get_random_int(self): 
         return random.randint(0, 1000)
 
+    #Helper Method for generating a random digits string of length 7
     def _get_random_postal_code(self, size=7): 
         return ''.join(random.choice(string.digits)
                         for x in range(size))
 
+    #Helper Method for generating a random status from status_array
     def _get_random_status(self): 
         status_array = ['active', 'closed', 'deleted']
         return random.choice(status_array)
 
+    #Helper Method for generating a random listing type from listing_types array
     def _get_random_listing_types(self): 
         listing_types = ['rent', 'sale']
         return random.choice(listing_types)
 
+    ## Models for APIS
+    # Get Method for retrieving the listing
+    # Query Params - :id
     @gen.coroutine
     def get(self, id):
         sql = """
@@ -42,6 +50,7 @@ class ListingDAO(object):
         cursor.close()
         yield result
 
+    # Get Method for retrieving the all listings
     @gen.coroutine
     def get_list(self):
         sql = """
@@ -56,6 +65,7 @@ class ListingDAO(object):
         cursor.close()
         yield result
 
+    # Post Method for creating listing
     @gen.coroutine
     def create(self):
         sql = """
@@ -72,6 +82,8 @@ class ListingDAO(object):
         yield cursor
 
 
+    # Put Method for updating listings
+    # Query Params - :id
     @gen.coroutine
     def update(self, id, data={}):
         fields = ''
@@ -89,6 +101,7 @@ class ListingDAO(object):
         yield cursor
 
 
+    # DeleteTable for deleting table
     @gen.coroutine
     def delete_table(self):
         sql = """
@@ -98,6 +111,7 @@ class ListingDAO(object):
         cursor = yield momoko.Op(self.db.execute, sql)
         yield cursor
 
+    # Delete Method for deleting a listing row from table
     @gen.coroutine
     def delete(self, id):
         sql = """
@@ -109,6 +123,7 @@ class ListingDAO(object):
         cursor.close()
         yield ''
 
+    # Create Table Method - which creates a table according to hard coded schema
     @gen.coroutine
     def create_table(self, callback=None):
         sql = """
